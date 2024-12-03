@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Dinâmica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .thumbnail {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .thumbnail img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.2s;
+        }
+        .thumbnail img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Galeria Dinâmica</h1>
+    <p>Cole os links das imagens (separados por vírgulas, espaços ou linhas):</p>
+    <textarea id="imageLinks" oninput="updateGallery()"></textarea>
+    <div class="gallery" id="gallery"></div>
+    <script>
+        function updateGallery() {
+            const linksInput = document.getElementById('imageLinks').value;
+            const galleryDiv = document.getElementById('gallery');
+
+            // Limpar galeria existente
+            galleryDiv.innerHTML = '';
+
+            // Separar links por vírgulas, espaços ou linhas
+            const links = linksInput.split(/[\s,]+/).filter(link => link.trim() !== '');
+
+            // Gerar galeria automaticamente
+            links.forEach(link => {
+                const thumbnailDiv = document.createElement('div');
+                thumbnailDiv.className = 'thumbnail';
+
+                const img = document.createElement('img');
+                img.src = link;
+                img.alt = "Imagem";
+
+                thumbnailDiv.appendChild(img);
+                galleryDiv.appendChild(thumbnailDiv);
+            });
+        }
+    </script>
+</body>
+</html>
